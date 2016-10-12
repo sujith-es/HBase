@@ -16,55 +16,56 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class SimpleRowCounter extends Configured implements Tool {
+public class SimpleRowCounter //extends Configured implements Tool
+{
 
-	static class RowCounterMapper extends
-			TableMapper<ImmutableBytesWritable, Result> {
-		public static enum Counters {
-			ROWS
-		}
+//	static class RowCounterMapper extends
+//			TableMapper<ImmutableBytesWritable, Result> {
+//		public static enum Counters {
+//			ROWS
+//		}
+//
+//		@Override
+//		protected void map(ImmutableBytesWritable row, Result value,
+//				Context context) throws IOException, InterruptedException {
+//			context.getCounter(Counters.ROWS).increment(1);
+//		}
+//
+//	}
 
-		@Override
-		protected void map(ImmutableBytesWritable row, Result value,
-				Context context) throws IOException, InterruptedException {
-			context.getCounter(Counters.ROWS).increment(1);
-		}
+//	@Override
+//	public int run(String[] args) throws Exception {
+//
+//		if (args.length != 1) {
+//			System.err.println("Usage: SimpleRowCounter <tablename>");
+//			return -1;
+//		}
+//
+//		String tableName = args[0];
+//		Scan scan = new Scan();
+//		scan.setFilter(new FirstKeyOnlyFilter());
+//
+//		Configuration conf = new Configuration();
+//		Job job = Job.getInstance(conf);
+//		job.setJarByClass(getClass());
+//
+//		TableMapReduceUtil.initTableMapperJob(tableName, scan,
+//				RowCounterMapper.class, ImmutableBytesWritable.class,
+//				Result.class, job);
+//
+//		job.setNumReduceTasks(0);
+//		job.setOutputKeyClass(NullOutputFormat.class);
+//		job.setOutputValueClass(NullOutputFormat.class);
+//
+//		return job.waitForCompletion(true) ? 0 : 1;
+//	}
 
-	}
-
-	@Override
-	public int run(String[] args) throws Exception {
-
-		if (args.length != 1) {
-			System.err.println("Usage: SimpleRowCounter <tablename>");
-			return -1;
-		}
-
-		String tableName = args[0];
-		Scan scan = new Scan();
-		scan.setFilter(new FirstKeyOnlyFilter());
-
-		Configuration conf = new Configuration();
-		Job job = Job.getInstance(conf);
-		job.setJarByClass(getClass());
-
-		TableMapReduceUtil.initTableMapperJob(tableName, scan,
-				RowCounterMapper.class, ImmutableBytesWritable.class,
-				Result.class, job);
-
-		job.setNumReduceTasks(0);
-		job.setOutputKeyClass(NullOutputFormat.class);
-		job.setOutputValueClass(NullOutputFormat.class);
-
-		return job.waitForCompletion(true) ? 0 : 1;
-	}
-
-	public static void main(String[] args) throws Exception {
-
-		int exitCode = ToolRunner.run(HBaseConfiguration.create(),
-				new SimpleRowCounter(), args);
-		System.exit(exitCode);
-
-	}
+//	public static void main(String[] args) throws Exception {
+//
+//		int exitCode = ToolRunner.run(HBaseConfiguration.create(),
+//				new SimpleRowCounter(), args);
+//		System.exit(exitCode);
+//
+//	}
 
 }
